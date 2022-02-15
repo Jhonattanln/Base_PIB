@@ -4,9 +4,11 @@ library(dplyr)
 library(ggplot2)
 
 #### Carregando dados
-set_billing_id("resonant-petal-287222")
+basedosdados::set_billing_id("resonant-petal-287222")
 
-query <- bdplyr('br_ibge_pib.municipio')
-df <- bd_collect(query)
+query <- basedosdados::bdplyr('br_ibge_pib.municipio')
+df <- basedosdados::bd_collect(query)
 
 View(df)
+
+args(bdplyr)
