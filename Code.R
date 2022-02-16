@@ -9,6 +9,8 @@ basedosdados::set_billing_id("resonant-petal-287222")
 query <- basedosdados::bdplyr('br_ibge_pib.municipio')
 df <- basedosdados::bd_collect(query)
 
+colSums(is.na(df)) ### analisando a quantidade de números ausentes
+
 ## Códigos das cidades
 clbo <- 4105805
 ctba <- 4106902
@@ -23,7 +25,17 @@ antonina <- df %>%
   arrange(desc(ano)) %>%
   mutate(va_agro_pib = (va_agropecuaria/pib)*100) ## criando a razão entre o pib e agro
 
+### Analisando os dados por grupo
+df %>%
+  group_by(id_municipio) %>%
+  summarise(agr_sum = sum(va_agropecuaria),
+            agr_max = max(va_agropecuaria),
+            agr_min = min(va_agropecuaria)) %>%
+  arrange(desc(agr_sum))
+
 ### Plotando gráfico
 ggplot(antonina, aes(x=ano, y=va_agro_pib))+ 
   geom_col()+
   geom_line()
+
+?summarise
