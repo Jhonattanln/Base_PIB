@@ -17,4 +17,5 @@ bh <- 3106200
 flor <- 2204006
 
 df %>%
-  filter(id_municipio == 3550308)
+  filter(id_municipio == ant) %>%
+  arrange(desc(impostos_liquidos))
