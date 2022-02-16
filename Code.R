@@ -25,17 +25,25 @@ antonina <- df %>%
   arrange(desc(ano)) %>%
   mutate(va_agro_pib = (va_agropecuaria/pib)*100) ## criando a razão entre o pib e agro
 
+
+### Plotando gráfico
+ggplot(antonina, aes(x=ano, y=va_agro_pib))+ 
+  geom_col()+
+  geom_line()
+
+################################ ##################################### #########################
+
 ### Analisando os dados por grupo
-df %>%
+cidades <- df %>%
   group_by(id_municipio) %>%
   summarise(agr_sum = sum(va_agropecuaria),
             agr_max = max(va_agropecuaria),
             agr_min = min(va_agropecuaria)) %>%
   arrange(desc(agr_sum))
 
-### Plotando gráfico
-ggplot(antonina, aes(x=ano, y=va_agro_pib))+ 
-  geom_col()+
-  geom_line()
+### Plotando dados
+
+ggplot(cidades, aes(x=id_municipio, y=agr_sum))+
+  geom_col()
 
 ?summarise
