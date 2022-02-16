@@ -9,6 +9,12 @@ basedosdados::set_billing_id("resonant-petal-287222")
 query <- basedosdados::bdplyr('br_ibge_pib.municipio')
 df <- basedosdados::bd_collect(query)
 
-View(df)
+clbo <- 4105805
+ctba <- 4106902
+parag <- 4118204
+ant <- 4101200
+bh <- 3106200
+flor <- 2204006
 
-args(bdplyr)
+df %>%
+  filter(id_municipio == 3550308)
