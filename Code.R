@@ -22,4 +22,6 @@ antonina <- df %>%
   arrange(desc(ano)) %>%
   mutate(va_agro_pib = (va_agropecuaria/pib)*100)
 
-View(antonina)
+ggplot(antonina, aes(x=ano, y=va_agro_pib))+
+  geom_col()+
+  geom_line()
