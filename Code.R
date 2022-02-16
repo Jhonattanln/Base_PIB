@@ -17,11 +17,13 @@ ant <- 4101200
 bh <- 3106200
 flor <- 2204006
 
+### Analizando uma cidade expecifíca
 antonina <- df %>%
-  filter(id_municipio == ant) %>%
+  filter(id_municipio == ant) %>% ## selecionando a cidade
   arrange(desc(ano)) %>%
-  mutate(va_agro_pib = (va_agropecuaria/pib)*100)
+  mutate(va_agro_pib = (va_agropecuaria/pib)*100) ## criando a razão entre o pib e agro
 
-ggplot(antonina, aes(x=ano, y=va_agro_pib))+
+### Plotando gráfico
+ggplot(antonina, aes(x=ano, y=va_agro_pib))+ 
   geom_col()+
   geom_line()
