@@ -2,12 +2,15 @@ library(basedosdados)
 library(tidyverse)
 library(dplyr)
 library(ggplot2)
+library(ggthemes)
 
 #### Carregando dados
 basedosdados::set_billing_id("resonant-petal-287222")
 
 query <- basedosdados::bdplyr('br_ibge_pib.municipio')
 df <- basedosdados::bd_collect(query)
+
+View(df)
 
 colSums(is.na(df)) ### analisando a quantidade de números ausentes
 
@@ -29,7 +32,8 @@ antonina <- df %>%
 ### Plotando gráfico
 ggplot(antonina, aes(x=ano, y=va_agro_pib))+ 
   geom_col()+
-  geom_line()
+  geom_line()+
+  theme_pander()
 
 ################################ ##################################### #########################
 
@@ -39,11 +43,15 @@ cidades <- df %>%
   summarise(agr_sum = sum(va_agropecuaria),
             agr_max = max(va_agropecuaria),
             agr_min = min(va_agropecuaria)) %>%
+  filter(agr_sum > 5000000000) %>%
   arrange(desc(agr_sum))
 
+View(cidades)
 ### Plotando dados
 
 ggplot(cidades, aes(x=id_municipio, y=agr_sum))+
-  geom_col()
+  geom_col()+
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))+
+  theme_base()
 
 ?summarise
